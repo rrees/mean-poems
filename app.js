@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+const poems = require('./routes/poems');
 
 const mongodb = require('mongodb');
 const monk = require('monk');
@@ -15,8 +16,6 @@ const ObjectId = mongodb.ObjectID;
 const POEMS_COLLECTION = "poems";
 
 const db =  monk(process.env.MONGODB_URI);
-
-console.log(db);
 
 var app = express();
 
@@ -34,12 +33,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(request, response, next) {
     request.db = db;
-    console.log(db);
     next();
 })
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/poems', poems);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
