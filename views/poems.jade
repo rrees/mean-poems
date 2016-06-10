@@ -2,7 +2,8 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  :markdown
+    *You promised me poems* - Tricky
   section
     each poem in poems
         h2 #{poem.name}
