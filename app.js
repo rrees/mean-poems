@@ -10,13 +10,6 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 const poems = require('./routes/poems');
 
-const mongodb = require('mongodb');
-const monk = require('monk');
-const ObjectId = mongodb.ObjectID;
-const POEMS_COLLECTION = "poems";
-
-const db =  monk(process.env.MONGODB_URI);
-
 var app = express();
 
 // view engine setup
@@ -30,11 +23,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(function(request, response, next) {
-    request.db = db;
-    next();
-})
 
 app.use('/', routes);
 app.use('/users', users);
